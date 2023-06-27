@@ -10,3 +10,6 @@
 [submodule "colcon_ws/src/px4_msgs"]
 	path = colcon_ws/src/px4_msgs
 	url = git@github.com:dev10110/px4_msgs.git
+[submodule "colcon_ws/src/DecompROS2"]
+	path = colcon_ws/src/DecompROS2
+	url = git@github.com:dev10110/DecompROS2.git
