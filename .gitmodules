@@ -13,3 +13,9 @@
 [submodule "colcon_ws/src/DecompROS2"]
 	path = colcon_ws/src/DecompROS2
 	url = git@github.com:dev10110/DecompROS2.git
+[submodule "colcon_ws/src/pcl_msgs"]
+	path = colcon_ws/src/pcl_msgs
+	url = https://github.com/ros-perception/pcl_msgs.git
+[submodule "colcon_ws/src/perception_pcl"]
+	path = colcon_ws/src/perception_pcl
+	url = https://github.com/ros-perception/perception_pcl.git
