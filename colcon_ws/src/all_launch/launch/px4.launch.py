@@ -17,7 +17,7 @@ def generate_launch_description():
     mavlink = ExecuteProcess(
             cmd = ["mavlink-routerd", "-c", mavlink_router_conf_file],
             name="mavlink-routerd",
-            output=False)
+            output='log')
 
     return LaunchDescription([
         microXRCE_bridge,
