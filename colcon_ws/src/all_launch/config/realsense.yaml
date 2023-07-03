@@ -26,7 +26,7 @@ enable_infra1: false
 enable_infra2: false
 
 pointcloud:
-  enable: true
+  enable: true  
   pointcloud_qos: "SENSOR_DATA"
 
 pointcloud_texture_index: 0
@@ -39,3 +39,5 @@ align_depth: false
 decimation_filter:
         enable: true
         filter_magnitude: 3
+
+clip_distance: 6.0

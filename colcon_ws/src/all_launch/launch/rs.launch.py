@@ -41,11 +41,11 @@ def generate_launch_description():
                 ]
             )
 
-    #decomp_ros_viz = ComposableNode(
-    #        namespace="camera",
-    #        package="decomp_ros",
-    #        plugin="decompros::VizPoly"
-    #        )
+    decomp_ros_viz = ComposableNode(
+            namespace="camera",
+            package="decomp_ros",
+            plugin="decompros::VizPoly"
+            )
 
     # Container
     realsense_container = ComposableNodeContainer(
@@ -56,7 +56,7 @@ def generate_launch_description():
         composable_node_descriptions=[
             realsense_node,
             decomp_node,
-            # decomp_ros_viz
+            decomp_ros_viz
         ],
         output='screen')
 
@@ -66,8 +66,6 @@ def generate_launch_description():
     off_roll = str(math.pi)
     off_pitch = "0"
     off_yaw = "0"
-
-
     static_tf = Node(
             package="tf2_ros",
             executable="static_transform_publisher",
