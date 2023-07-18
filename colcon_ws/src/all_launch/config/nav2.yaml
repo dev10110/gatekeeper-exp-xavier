@@ -25,8 +25,8 @@ bt_navigator:
     bt_loop_duration: 20
     default_server_timeout: 40
     # default_nav_to_pose_bt_xml: "/opt/ros/humble/install/share/nav2_bt_navigator/behavior_trees/navigate_w_replanning_time.xml"
-    default_nav_to_pose_bt_xml: "/workspaces/isaac_ros-dev/install/all_launch/share/all_launch/config/replan.xml"
-    default_nav_through_poses_bt_xml: "/workspaces/isaac_ros-dev/install/all_launch/share/all_launch/config/replan.xml"
+    # default_nav_to_pose_bt_xml: "/workspaces/isaac_ros-dev/install/all_launch/share/all_launch/config/replan.xml"
+    # default_nav_through_poses_bt_xml: "/workspaces/isaac_ros-dev/install/all_launch/share/all_launch/config/replan.xml"
     # 'default_nav_through_poses_bt_xml' and 'default_nav_to_pose_bt_xml' are use defaults:
     # nav2_bt_navigator/navigate_to_pose_w_replanning_and_recovery.xml
     # nav2_bt_navigator/navigate_through_poses_w_replanning_and_recovery.xml
@@ -83,7 +83,7 @@ bt_navigator_rclcpp_node:
 controller_server:
   ros__parameters:
     use_sim_time: False
-    controller_frequency: 0.1
+    controller_frequency: 10.0
     min_x_velocity_threshold: 0.001
     min_y_velocity_threshold: 0.5
     min_theta_velocity_threshold: 0.001
@@ -148,19 +148,19 @@ controller_server:
 
 # Update velocity smoother default params to match our controller server config
 # https://navigation.ros.org/configuration/packages/configuring-velocity-smoother.html
-#velocity_smoother:
-#  ros__parameters:
-#    smoothing_frequency: 20.0
-#    scale_velocities: false
-#    feedback: "OPEN_LOOP"
-#    max_velocity: [1.0, 0.0, 2.0]
-#    min_velocity: [0.0, 0.0, -2.0]
-#    deadband_velocity: [0.0, 0.0, 0.0]
-#    velocity_timeout: 1.0
-#    max_accel: [1.0, 0.0, 2.0]
-#    max_decel: [-1.0, 0.0, -2.0]
-#    odom_topic: "odom"
-#    odom_duration: 0.1
+# velocity_smoother:
+#   ros__parameters:
+#     smoothing_frequency: 20.0
+#     scale_velocities: false
+#     feedback: "OPEN_LOOP"
+#     max_velocity: [1.0, 0.0, 2.0]
+#     min_velocity: [0.0, 0.0, -2.0]
+#     deadband_velocity: [0.0, 0.0, 0.0]
+#     velocity_timeout: 1.0
+#     max_accel: [1.0, 0.0, 2.0]
+#     max_decel: [-1.0, 0.0, -2.0]
+#     odom_topic: "odom"
+#     odom_duration: 0.1
 
 controller_server_rclcpp_node:
   ros__parameters:

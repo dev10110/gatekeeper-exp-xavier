@@ -26,7 +26,7 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 def generate_launch_description():
 
     nvblox_bringup_dir = get_package_share_directory('all_launch')
-    nav2_bringup_dir = get_package_share_directory('all_launch') # location of nav2 installation
+    nav2_bringup_dir = get_package_share_directory('nav2_bringup') # location of nav2 installation
 
 
     # Config file
@@ -36,7 +36,7 @@ def generate_launch_description():
     # Nav2 launch
     nav2_launch = IncludeLaunchDescription(
         PythonLaunchDescriptionSource(
-            os.path.join(nav2_bringup_dir, 'launch', 'navigation_launch2.py')),
+            os.path.join(nav2_bringup_dir, 'launch', 'navigation_launch.py')),
         launch_arguments={'use_sim_time': 'False',
                           'params_file': nav2_param_file,
                           'autostart': 'True',

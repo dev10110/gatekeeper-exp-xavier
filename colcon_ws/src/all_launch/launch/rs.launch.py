@@ -47,6 +47,17 @@ def generate_launch_description():
             plugin="decompros::VizPoly"
             )
 
+    # image republisher node
+    # image_republisher_component = ComposableNode(
+    #         namespace="camera",
+    #         package="image_republish",
+    #         plugin="image_republish::ImageRepublisher",
+    #         remappings=[
+    #             ("image", "color/image_raw"),
+    #             ("camera_info", "color/camera_info")
+    #             ]
+    #         )
+
     # Container
     realsense_container = ComposableNodeContainer(
         name='realsense_container',
@@ -56,7 +67,8 @@ def generate_launch_description():
         composable_node_descriptions=[
             realsense_node,
             decomp_node,
-            decomp_ros_viz
+            decomp_ros_viz,
+            # image_republisher_component
         ],
         output='screen')
 
