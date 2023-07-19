@@ -28,7 +28,7 @@ ImageRepublisher::ImageRepublisher(const rclcpp::NodeOptions & options)
 
 	  pub_ = image_transport::create_camera_publisher(
 			  this, 
-			  "republished_image"
+			  "republished_image",
 			  rmw_qos_profile_sensor_data
 			  );
 

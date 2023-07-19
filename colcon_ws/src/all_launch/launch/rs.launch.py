@@ -41,6 +41,12 @@ def generate_launch_description():
                 ]
             )
 
+    decomp_buffer = ComposableNode(
+            namespace="camera",
+            package="decomp_ros",
+            plugin="decompros::SFCBuffer"
+            )
+
     decomp_ros_viz = ComposableNode(
             namespace="camera",
             package="decomp_ros",
@@ -67,6 +73,7 @@ def generate_launch_description():
         composable_node_descriptions=[
             realsense_node,
             decomp_node,
+            decomp_buffer,
             decomp_ros_viz,
             # image_republisher_component
         ],
