@@ -21,4 +21,4 @@
 	url = https://github.com/ros-perception/perception_pcl.git
 [submodule "colcon_ws/src/isaac_ros_nvblox"]
 	path = colcon_ws/src/isaac_ros_nvblox
-	url = https://github.com/NVIDIA-ISAAC-ROS/isaac_ros_nvblox.git
+	url = git@github.com:dev10110/isaac_ros_nvblox.git 
