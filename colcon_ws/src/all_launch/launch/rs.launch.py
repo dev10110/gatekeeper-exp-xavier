@@ -74,7 +74,7 @@ def generate_launch_description():
             realsense_node,
             decomp_node,
             decomp_buffer,
-            decomp_ros_viz,
+            # decomp_ros_viz,
             # image_republisher_component
         ],
         output='screen')
