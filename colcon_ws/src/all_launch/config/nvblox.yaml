@@ -49,10 +49,10 @@
     clear_outside_radius_rate_hz: 1.0
 
     # mark free settings
-    mark_free_sphere_radius_m: 1.0
-    mark_free_sphere_center_x: 0.0
-    mark_free_sphere_center_y: 0.0
-    mark_free_sphere_center_z: 0.25
+    mark_free_sphere_radius_m: 0.25
+    mark_free_sphere_center_x: -2.0 # 0.0
+    mark_free_sphere_center_y: 2.45 # 0.0
+    mark_free_sphere_center_z: 1.0 # 0.25
     
     # QoS settings
     depth_qos: "SENSOR_DATA"
