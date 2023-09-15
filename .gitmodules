@@ -22,3 +22,15 @@
 [submodule "colcon_ws/src/isaac_ros_nvblox"]
 	path = colcon_ws/src/isaac_ros_nvblox
 	url = git@github.com:dev10110/isaac_ros_nvblox.git 
+[submodule "colcon_ws/src/vicon-bridge"]
+	path = colcon_ws/src/vicon-bridge
+	url = git@github.com:dasc-lab/vicon-bridge.git
+[submodule "colcon_ws/src/vicon_px4_bridge"]
+	path = colcon_ws/src/vicon_px4_bridge
+	url = git@github.com:dasc-lab/vicon_px4_bridge.git
+[submodule "colcon_ws/src/ros2-ping"]
+	path = colcon_ws/src/ros2-ping
+	url = git@github.com:dasc-lab/ros2-ping.git
+[submodule "colcon_ws/src/jps3d_ros2"]
+	path = colcon_ws/src/jps3d_ros2
+	url = git@github.com:dev10110/jps3d_ros2.git

@@ -12,7 +12,7 @@ def generate_launch_description():
     # Config file
     config_file = os.path.join(
         get_package_share_directory('all_launch'),
-        'config', 'realsense.yaml')
+        'config', 'config_realsense.yaml')
 
     # Realsense driver node
     realsense_node = ComposableNode(
@@ -21,49 +21,6 @@ def generate_launch_description():
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[config_file])
     
-    # decompros node
-    decomp_node = ComposableNode(
-            namespace="camera", 
-            package="decomp_ros",
-            plugin="decompros::SeedDecomp",
-            name="seedDecomp_component",
-            parameters=[
-                {"fov_v": 58.0},
-                {"fov_h": 77.0},
-                {"fov_range": 4.0},
-                {"fov_obs_ray_range": 2.0},
-                {"fov_obs_spacing": 0.25},
-                {"fov_obs_skip_first": 1},
-                {"publish_fov_obstacles": False}
-                ],
-            remappings=[
-                ("cloud_in", "depth/color/points"),
-                ]
-            )
-
-    decomp_buffer = ComposableNode(
-            namespace="camera",
-            package="decomp_ros",
-            plugin="decompros::SFCBuffer"
-            )
-
-    decomp_ros_viz = ComposableNode(
-            namespace="camera",
-            package="decomp_ros",
-            plugin="decompros::VizPoly"
-            )
-
-    # image republisher node
-    # image_republisher_component = ComposableNode(
-    #         namespace="camera",
-    #         package="image_republish",
-    #         plugin="image_republish::ImageRepublisher",
-    #         remappings=[
-    #             ("image", "color/image_raw"),
-    #             ("camera_info", "color/camera_info")
-    #             ]
-    #         )
-
     # Container
     realsense_container = ComposableNodeContainer(
         name='realsense_container',
@@ -72,16 +29,12 @@ def generate_launch_description():
         executable='component_container',
         composable_node_descriptions=[
             realsense_node,
-            decomp_node,
-            decomp_buffer,
-            # decomp_ros_viz,
-            # image_republisher_component
-        ],
+           ],
         output='screen')
 
     off_x = "0.0"
-    off_y = "0"
-    off_z = "0"
+    off_y = "0.0"
+    off_z = "0.0"
     off_roll = str(math.pi)
     off_pitch = "0"
     off_yaw = "0"
@@ -89,7 +42,15 @@ def generate_launch_description():
             package="tf2_ros",
             executable="static_transform_publisher",
             arguments=[
-               off_x, off_y, off_z, off_yaw, off_pitch, off_roll, "vicon/px4_1/px4_1", "camera_link"]
+               "--x", off_x,
+               "--y", off_y,
+               "--z", off_z,
+               "--yaw", off_yaw,
+               "--pitch", off_pitch,
+               "--roll", off_roll,
+               "--frame-id", "vicon/px4_1/px4_1",
+               "--child-frame-id", "camera_link"
+               ]
             )
 
     return LaunchDescription([

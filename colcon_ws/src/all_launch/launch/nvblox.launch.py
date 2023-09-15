@@ -1,11 +1,12 @@
 import os
+import math
 
 from ament_index_python.packages import get_package_share_directory
 from launch import LaunchDescription
-from launch.actions import GroupAction
+from launch.actions import GroupAction   
 from launch.conditions import IfCondition
 from launch.substitutions import LaunchConfiguration
-from launch_ros.actions import (ComposableNodeContainer, SetParameter,
+from launch_ros.actions import (Node, ComposableNodeContainer, SetParameter,
                                 SetParametersFromFile, SetRemap)
 from launch_ros.descriptions import ComposableNode
 
@@ -16,10 +17,19 @@ def generate_launch_description():
     base_config_dir = os.path.join(bringup_dir, 'config')
 
     # Config files
-    base_config = os.path.join(base_config_dir, 'nvblox.yaml')
+    base_config = os.path.join(base_config_dir, 'config_nvblox.yaml')
+    
+    rs_config = os.path.join(base_config_dir, 'config_realsense.yaml')
+
+    # Realsense driver node
+    realsense_node = ComposableNode(
+        namespace="camera",
+        package='realsense2_camera',
+        plugin='realsense2_camera::RealSenseNodeFactory',
+        parameters=[rs_config])
 
     # Nvblox node
-    node = ComposableNode(
+    nvblox_node = ComposableNode(
         name='nvblox_node',
         package='nvblox_ros',
         plugin='nvblox::NvbloxNode')
@@ -30,7 +40,9 @@ def generate_launch_description():
         namespace='',
         package='rclcpp_components',
         executable='component_container',
-        composable_node_descriptions=[node],
+        composable_node_descriptions=[
+            realsense_node,
+            nvblox_node],
         output='screen')
 
     group_action = GroupAction([
@@ -54,4 +66,29 @@ def generate_launch_description():
         nvblox_container
     ])
 
-    return LaunchDescription([group_action])
+
+    off_x = "0.0"
+    off_y = "0"
+    off_z = "0"
+    off_roll = str(math.pi)
+    off_pitch = "0"
+    off_yaw = "0"
+    static_tf = Node(
+            package="tf2_ros",
+            executable="static_transform_publisher",
+            arguments=[
+               "--x", off_x,
+               "--y", off_y,
+               "--z", off_z,
+               "--yaw", off_yaw,
+               "--pitch", off_pitch,
+               "--roll", off_roll,
+               "--frame-id", "vicon/px4_1/px4_1",
+               "--child-frame-id", "camera_link"
+               ]
+            )
+
+    return LaunchDescription([
+        group_action, 
+        static_tf
+        ])

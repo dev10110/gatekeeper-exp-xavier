@@ -1,0 +1,90 @@
+/**:
+  ros__parameters:
+    # miscellaneous
+    voxel_size: 0.1
+    use_tf_transforms: true
+    
+    # esdf settings
+    compute_esdf: true 
+    esdf_update_rate_hz: 2.0
+    esdf_2d: false     
+    esdf_distance_slice: true
+    esdf_slice_height: 1.0
+    esdf_2d_min_height: 0.8
+    esdf_2d_max_height: 1.2
+
+    esdf_3d_origin_frame_id: "vicon/px4_1/px4_1"
+    esdf_3d_pub_range_x: 1.0
+    esdf_3d_pub_range_y: 1.0
+    esdf_3d_pub_range_z: 1.0
+    esdf_3d_publish_rate_hz: 10.0
+
+    
+    # mesh settings
+    compute_mesh: false
+    mesh_update_rate_hz: 0.5
+    
+    # color settings
+    use_color: false
+    max_color_update_hz: 5.0
+    
+    # depth settings
+    use_depth: true
+    max_depth_update_hz: 30.0
+    
+    # lidar settings
+    use_lidar: false
+    
+    # static occupancy
+    use_static_occupancy_layer: false   # tsdf if false
+    occupancy_publication_rate_hz: 2.0
+    
+    # Input queues
+    max_poll_rate_hz: 100.0
+    maximum_sensor_message_queue_length: 30
+    
+    # Map clearing settings
+    map_clearing_radius_m: -1.0  # no map clearing if < 0.0
+    map_clearing_frame_id: "vicon/px4_1/px4_1"
+    clear_outside_radius_rate_hz: 1.0
+
+    # mark free settings
+    mark_free_sphere_radius_m: 1.0
+    mark_free_sphere_center_x: 2.0
+    mark_free_sphere_center_y: 0.0
+    mark_free_sphere_center_z: 0.7
+    
+    # QoS settings
+    depth_qos: "SENSOR_DATA"
+    color_qos: "SENSOR_DATA"
+    
+    # Rviz visualization
+    slice_visualization_attachment_frame_id: "camera_link"
+    slice_visualization_side_length: 10.0
+    
+    # Needed because of RS driver bug:
+    # https://github.com/IntelRealSense/realsense-ros/issues/2583
+    is_realsense_data: True 
+
+    mapper:
+      # tsdf or occupancy integrator
+      projective_integrator_max_integration_distance_m: 4.0
+      projective_integrator_truncation_distance_vox: 1.0
+      lidar_projective_integrator_max_integration_distance_m: 10.0
+      # tsdf integrator
+      weighting_mode: "inverse_square" # applies to color integrator as well
+      tsdf_integrator_max_weight: 5.0
+      # occupancy integrator
+      free_region_occupancy_probability: 0.45
+      occupied_region_occupancy_probability: 0.55
+      unobserved_region_occupancy_probability: 0.5
+      occupied_region_half_width_m: 0.1
+      # esdf integrator
+      esdf_integrator_min_weight: 0.0001
+      esdf_integrator_max_distance_m: 4.0
+      esdf_integrator_max_site_distance_vox: 5.0
+      # mesh integrator
+      mesh_integrator_min_weight: 0.0001
+      mesh_integrator_weld_vertices: true
+      # color integrator
+      color_integrator_max_integration_distance_m: 4.0
