@@ -22,7 +22,7 @@ class NominalPlanner2(Node):
         self.path_type = "circle"
         self.horizon = 2.0 # seconds
         self.fly_at_z = 1.0 # meters
-        self.period = 15.0 # seconds
+        self.period = 30.0 # seconds
 
         ### circle params
         self.circle_x0 = 0.0 # meters 

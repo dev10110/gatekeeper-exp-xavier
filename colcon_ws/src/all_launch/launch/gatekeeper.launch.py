@@ -13,7 +13,7 @@ from launch_ros.descriptions import ComposableNode
 def generate_launch_description():
 
     use_sim_time = False
-    use_gk = True
+    use_gk = False
 
     # launch the path planning
     jps = Node(
@@ -61,6 +61,7 @@ def generate_launch_description():
                 {"use_sim_time": use_sim_time},
                 {"trajectory_topic": traj_topic},
                 {"publish_rate_hz": 50.0},
+                {"terminal_yaw_freq_hz": 1.0 / 10.0},
                 ]
             )
 

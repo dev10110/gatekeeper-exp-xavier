@@ -56,7 +56,7 @@ def traj_inside_sfc(pos_traj, sfc_A, sfc_b, r=0.0, ground_z_margin = -1.0):
         n_[i] = norm(sfc_A[i,:])
 
     b_minus_r = sfc_b - r * n_
-    b_minus_2r = sfc_b - 2 * r * n_
+    b_minus_2r = sfc_b - 3 * r * n_
 
     B = np.kron(np.ones((N,1)), b_minus_r)
     B[-1, :] = b_minus_2r # make the last one use twice the radius
