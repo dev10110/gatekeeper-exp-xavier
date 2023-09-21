@@ -32,7 +32,7 @@ pointcloud:
 pointcloud_texture_index: 0
 pointcloud_texture_stream: RS2_STREAM_ANY
 
-enable_sync: false
+enable_sync: true
 align_depth: false
 
 
@@ -40,4 +40,4 @@ decimation_filter:
         enable: true
         filter_magnitude: 3
 
-clip_distance: 6.0
+clip_distance: 9.0

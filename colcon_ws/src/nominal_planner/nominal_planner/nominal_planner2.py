@@ -19,6 +19,7 @@ class NominalPlanner2(Node):
         ## params
 
         ### general params
+        self.timer_period = 0.5 # seconds
         self.path_type = "circle"
         self.horizon = 2.0 # seconds
         self.fly_at_z = 1.0 # meters
@@ -72,7 +73,6 @@ class NominalPlanner2(Node):
         self.vicon_sub = self.create_subscription(TransformStamped,  "vicon/px4_1/px4_1", self.state_callback,1)
 
         ## timers
-        self.timer_period = 0.5 # seconds
         self.timer = self.create_timer(self.timer_period, self.timer_callback)
 
 
@@ -91,8 +91,8 @@ class NominalPlanner2(Node):
         delta  = self.ref - np.reshape(np.array([self.x, self.y, self.z, np.cos(self.yaw), np.sin(self.yaw)]), (5, 1))
 
         delta[2, :] = 0
-        delta[3, :] = delta[3, :] * 0.2
-        delta[4, :] = delta[4, :] * 0.2
+        delta[3, :] = delta[3, :] * 0.0
+        delta[4, :] = delta[4, :] * 0.0
 
         ind = np.argmin(np.linalg.norm(delta, axis=0))
 

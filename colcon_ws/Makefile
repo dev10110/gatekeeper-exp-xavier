@@ -9,7 +9,7 @@
 # 2) to build only 'my_pkg`:
 #    $ pkg=my_pkg make
 
-mode=Release
+mode=Debug
 .SILENT: all clean
 .PHONY: all clean
 

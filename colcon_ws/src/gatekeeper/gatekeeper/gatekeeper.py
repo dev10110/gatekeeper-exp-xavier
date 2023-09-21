@@ -13,6 +13,7 @@ from px4_msgs.msg import VehicleLocalPosition, TrajectorySetpoint
 from decomp_ros_msgs.msg import PolyhedronStamped
 from nav_msgs.msg import Path
 import builtin_interfaces.msg 
+from visualization_msgs.msg import Marker
 
 from .utils_euler import quat2yaw, yaw2quat
 from .utils_sfc import SFC
@@ -65,6 +66,7 @@ class Gatekeeper(Node):
         self.pub_chebyshev_ = self.create_publisher(PointStamped, "/nvblox_node/sfc/chebyshev_center", 10)
         self.pub_interpolated_nom_ = self.create_publisher(PoseArray, "nominal_traj/interpolated", 10)
         self.pub_committed_viz_ = self.create_publisher(PoseArray, "committed_traj/viz", 10)
+        self.pub_committed_viz2_ = self.create_publisher(Marker, "committed_traj/viz2", 10)
         self.pub_timer_gk_ = self.create_publisher(builtin_interfaces.msg.Duration, "/diagnostics/timing/gatekeeper", 10)
         self.pub_timer_gk_total_ = self.create_publisher(builtin_interfaces.msg.Duration, "/diagnostics/timing/gatekeeper_total", 10)
         self.pub_timer_mpc_ = self.create_publisher(builtin_interfaces.msg.Duration, "/diagnostics/timing/mpc", 10)
@@ -195,7 +197,6 @@ class Gatekeeper(Node):
         # store it
         sfc = SFC.from_msg(sfc_msg.poly)
         self.sfc = sfc.shrink(radius=self.drone_radius)
-
 
         # compute the chebyshev center and publish it
         suc, cheby = self.sfc.chebyshev();
