@@ -4,9 +4,6 @@
 [submodule "colcon_ws/src/dasc_ros"]
 	path = colcon_ws/src/dasc_ros
 	url = git@github.com:dev10110/dasc_ros.git
-[submodule "colcon_ws/src/isaac_ros_common"]
-	path = colcon_ws/src/isaac_ros_common
-	url = git@github.com:dev10110/gatekeeper-isaac-ros-common.git
 [submodule "colcon_ws/src/px4_msgs"]
 	path = colcon_ws/src/px4_msgs
 	url = git@github.com:dev10110/px4_msgs.git
