@@ -1,7 +1,7 @@
 /**:
   ros__parameters:
     # miscellaneous
-    voxel_size: 0.1
+    voxel_size: 0.075
     use_tf_transforms: true
     
     # esdf settings
@@ -14,8 +14,8 @@
     esdf_2d_max_height: 1.05
 
     esdf_3d_origin_frame_id: "vicon/px4_1/px4_1"
-    esdf_3d_pub_range_x: 2.0
-    esdf_3d_pub_range_y: 2.0
+    esdf_3d_pub_range_x: 1.5
+    esdf_3d_pub_range_y: 1.5
     esdf_3d_pub_range_z: 1.0
     esdf_3d_publish_rate_hz: 5.0
 
@@ -44,7 +44,7 @@
     maximum_sensor_message_queue_length: 30
     
     # Map clearing settings
-    map_clearing_radius_m: 3.0  # no map clearing if < 0.0
+    map_clearing_radius_m: -1.0  # no map clearing if < 0.0
     map_clearing_frame_id: "vicon/px4_1/px4_1"
     clear_outside_radius_rate_hz: 1.0
 

@@ -6,6 +6,6 @@ vicon_bridge:
                 target_segment_name: "px4_1"
                 world_frame_id: "world"
                 tf_namespace: "vicon"
-                host_name: "192.168.1.117:801"
-                update_rate_hz: 250.0
+                host_name: "192.168.1.115:801"
+                update_rate_hz: 125.0
                 stream_mode: "ServerPush"
