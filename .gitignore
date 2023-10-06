@@ -1,5 +1,6 @@
 build/
 log/
 install/
+bags/
 
 __pycache__/
