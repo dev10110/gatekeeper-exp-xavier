@@ -23,7 +23,7 @@ def generate_launch_description():
 
     # Realsense driver node
     realsense_node = ComposableNode(
-        namespace="camera",
+        namespace="",
         package='realsense2_camera',
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[rs_config])
@@ -41,8 +41,9 @@ def generate_launch_description():
         package='rclcpp_components',
         executable='component_container',
         composable_node_descriptions=[
-            realsense_node,
-            nvblox_node],
+            # realsense_node,
+            nvblox_node,
+            ],
         output='screen')
 
     group_action = GroupAction([
@@ -54,13 +55,13 @@ def generate_launch_description():
 
         # Remappings for realsense data
         SetRemap(src=['depth/image'],
-                 dst=['/camera/depth/image_rect_raw']),
+                 dst=['camera/depth/image_rect_raw']),
         SetRemap(src=['depth/camera_info'],
-                 dst=['/camera/depth/camera_info']),
+                 dst=['camera/depth/camera_info']),
         SetRemap(src=['color/image'],
-                 dst=['/camera/color/image_raw']),
+                 dst=['camera/color/image_raw']),
         SetRemap(src=['color/camera_info'],
-                 dst=['/camera/color/camera_info']),
+                 dst=['camera/color/camera_info']),
 
         # Include the node container
         nvblox_container
@@ -83,7 +84,7 @@ def generate_launch_description():
                "--yaw", off_yaw,
                "--pitch", off_pitch,
                "--roll", off_roll,
-               "--frame-id", "vicon/px4_1/px4_1",
+               "--frame-id", "vicon/laptop_realsense/laptop_realsense",
                "--child-frame-id", "camera_link"
                ]
             )

@@ -6,6 +6,7 @@
     
     # esdf settings
     compute_esdf: true 
+    use_cerfified_tsdf: false 
     esdf_update_rate_hz: 5.0
     esdf_2d: false     
     esdf_distance_slice: true
@@ -13,7 +14,7 @@
     esdf_2d_min_height: 0.95
     esdf_2d_max_height: 1.05
 
-    esdf_3d_origin_frame_id: "vicon/px4_1/px4_1"
+    esdf_3d_origin_frame_id: "vicon/laptop_realsense/laptop_realsense"
     esdf_3d_pub_range_x: 1.5
     esdf_3d_pub_range_y: 1.5
     esdf_3d_pub_range_z: 1.0
@@ -45,7 +46,7 @@
     
     # Map clearing settings
     map_clearing_radius_m: -1.0  # no map clearing if < 0.0
-    map_clearing_frame_id: "vicon/px4_1/px4_1"
+    map_clearing_frame_id: "vicon/laptop_realsense/laptop_realsense"
     clear_outside_radius_rate_hz: 1.0
 
     # mark free settings

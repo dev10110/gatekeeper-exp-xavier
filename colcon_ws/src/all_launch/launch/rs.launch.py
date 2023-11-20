@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # Realsense driver node
     realsense_node = ComposableNode(
-        namespace="camera",
+        namespace="",
         package='realsense2_camera',
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[config_file])
@@ -48,7 +48,7 @@ def generate_launch_description():
                "--yaw", off_yaw,
                "--pitch", off_pitch,
                "--roll", off_roll,
-               "--frame-id", "vicon/px4_1/px4_1",
+               "--frame-id", "vicon/laptop_realsense/laptop_realsense",
                "--child-frame-id", "camera_link"
                ]
             )
