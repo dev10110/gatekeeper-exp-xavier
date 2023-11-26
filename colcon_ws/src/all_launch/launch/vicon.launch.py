@@ -28,8 +28,8 @@ def generate_launch_description():
             parameters=[config_file],
             remappings=[
                 ("transform", f"vicon/{robot}/{robot}"),
-                ("pose", f"noisy_vicon/{robot}/{robot}"),
-                ("pose_with_covariance", f"noisy_vicon_with_cov/{robot}/{robot}"),
+                ("pose", f"pose"),
+                ("pose_with_covariance", f"pose_cov"),
                 ]
         )
 
