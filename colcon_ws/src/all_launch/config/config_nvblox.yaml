@@ -2,7 +2,8 @@
   ros__parameters:
     # miscellaneous
     voxel_size: 0.075
-    use_tf_transforms: true
+    use_tf_transforms: false
+    use_topic_transforms: true
     
     # esdf settings
     compute_esdf: true 
