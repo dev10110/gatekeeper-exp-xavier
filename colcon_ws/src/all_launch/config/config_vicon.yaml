@@ -1,7 +1,7 @@
 ---
 vicon_bridge:
         ros__parameters:
-                publish_specific_segment: False 
+                publish_specific_segment: True
                 target_subject_name: "laptop_realsense"
                 target_segment_name: "laptop_realsense"
                 world_frame_id: "world"
@@ -9,3 +9,11 @@ vicon_bridge:
                 host_name: "192.168.1.115:801"
                 update_rate_hz: 125.0
                 stream_mode: "ServerPush"
+
+noisy_vicon:
+        ros__parameters:
+                epsilon_R_per_frame: 0.00
+                epsilon_t_per_frame: 0.00
+                update_rate_hz: 30.0
+
+
