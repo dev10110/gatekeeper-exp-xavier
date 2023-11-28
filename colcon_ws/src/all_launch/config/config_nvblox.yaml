@@ -2,12 +2,12 @@
   ros__parameters:
     # miscellaneous
     voxel_size: 0.075
-    use_tf_transforms: false
-    use_topic_transforms: true
+    use_tf_transforms: true
+    use_topic_transforms: false
     
     # esdf settings
     compute_esdf: true 
-    use_cerfified_tsdf: true 
+    use_cerfified_tsdf: true
     esdf_update_rate_hz: 5.0
     esdf_2d: false     
     esdf_distance_slice: true
