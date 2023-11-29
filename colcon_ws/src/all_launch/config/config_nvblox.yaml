@@ -7,7 +7,7 @@
     
     # esdf settings
     compute_esdf: true 
-    use_cerfified_tsdf: true
+    use_cerfified_tsdf: false
     esdf_update_rate_hz: 5.0
     esdf_2d: false     
     esdf_distance_slice: true

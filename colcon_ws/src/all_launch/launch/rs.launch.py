@@ -16,7 +16,7 @@ def generate_launch_description():
 
     # Realsense driver node
     realsense_node = ComposableNode(
-        namespace="/camera",
+        namespace="",
         package='realsense2_camera',
         plugin='realsense2_camera::RealSenseNodeFactory',
         parameters=[config_file])
