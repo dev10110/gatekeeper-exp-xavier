@@ -91,5 +91,5 @@ def generate_launch_description():
 
     return LaunchDescription([
         group_action, 
-        static_tf
+        # static_tf  # This is done in the realsense node
         ])
