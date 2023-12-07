@@ -35,7 +35,7 @@ def generate_launch_description():
     off_x = "0.0"
     off_y = "0.0"
     off_z = "0.0"
-    off_roll = str(math.pi)
+    off_roll = "0.0" 
     off_pitch = "0"
     off_yaw = "0"
     static_tf = Node(
