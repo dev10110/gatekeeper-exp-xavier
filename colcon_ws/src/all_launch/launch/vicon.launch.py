@@ -9,7 +9,7 @@ from launch_ros.descriptions import ComposableNode
 
 def generate_launch_description():
 
-    robot = "laptop_realsense"
+    robot = "laptop_realsense_true"
 
     # Config file
     config_file = os.path.join(
