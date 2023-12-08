@@ -12,8 +12,8 @@ vicon_bridge:
 
 noisy_vicon:
         ros__parameters:
-                epsilon_R_per_frame: 0.001
-                epsilon_t_per_frame: 0.10
-                update_rate_hz: 30.0
+                epsilon_R_per_frame: 0.000
+                epsilon_t_per_frame: 0.01
+                update_rate_hz: 2.0
 
 
