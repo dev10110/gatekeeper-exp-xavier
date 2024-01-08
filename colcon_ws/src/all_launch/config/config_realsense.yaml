@@ -19,8 +19,8 @@ depth_info_qos: "SYSTEM_DEFAULT"
 infra_qos: "SENSOR_DATA"
 
 enable_depth:  true
+enable_color:  true
 enable_accel:  false
-enable_color:  false
 enable_gyro:   false
 enable_infra1: false
 enable_infra2: false

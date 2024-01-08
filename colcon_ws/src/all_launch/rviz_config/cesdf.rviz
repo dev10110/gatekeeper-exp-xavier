@@ -8,7 +8,7 @@ Panels:
         - /Image1/Topic1
         - /TF1/Tree1
       Splitter Ratio: 0.5323529243469238
-    Tree Height: 725
+    Tree Height: 365
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -418,7 +418,7 @@ Visualization Manager:
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.5648000240325928
+      Pitch: 1.5598000288009644
       Target Frame: vicon/laptop_realsense/laptop_realsense
       Value: ThirdPersonFollower (rviz_default_plugins)
       Yaw: 3.1254000663757324
@@ -441,5 +441,5 @@ Window Geometry:
   Views:
     collapsed: true
   Width: 936
-  X: 48
+  X: 984
   Y: 27

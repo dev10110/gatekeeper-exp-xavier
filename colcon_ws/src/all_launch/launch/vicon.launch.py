@@ -9,6 +9,8 @@ from launch_ros.descriptions import ComposableNode
 
 def generate_launch_description():
 
+    launch_noisy_node = False
+
     robot = "laptop_realsense_true"
 
     # Config file
@@ -21,18 +23,6 @@ def generate_launch_description():
         executable="vicon_bridge",
         parameters=[config_file], # dont forget to change the robot name in this config file too
         )
-
-    noisy_vicon_node = Node(
-            package="vicon_bridge",
-            executable="noisy_vicon",
-            parameters=[config_file],
-            remappings=[
-                ("transform", f"vicon/{robot}/{robot}"),
-                ("pose", f"pose"),
-                ("pose_with_covariance", f"pose_cov"),
-                ]
-        )
-
 
     # define some static tfs
     vicon_world_NED = Node(
@@ -48,9 +38,8 @@ def generate_launch_description():
                 "--child-frame-id", "/vicon/world/NED",
                 "--frame-id", "/vicon/world"]
             )
-    
+
     return LaunchDescription([
         vicon_node,
         vicon_world_NED,
-        noisy_vicon_node,
         ])

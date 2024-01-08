@@ -36,6 +36,10 @@ class ImageRepublisher : public rclcpp::Node
 		
 		//subscribers
 		image_transport::CameraSubscriber sub_;
+
+		// params
+		std::string input_image_topic_;
+		std::string output_image_topic_;
 };
 
 } //namespace image_republish
