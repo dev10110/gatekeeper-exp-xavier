@@ -18,15 +18,15 @@ depth_info_qos: "SYSTEM_DEFAULT"
 
 infra_qos: "SENSOR_DATA"
 
-enable_accel: false
-enable_color: true
-enable_depth: true
-enable_gyro: false
+enable_depth:  true
+enable_accel:  false
+enable_color:  false
+enable_gyro:   false
 enable_infra1: false
 enable_infra2: false
 
 pointcloud:
-  enable: false # true  
+  enable: false 
   pointcloud_qos: "SENSOR_DATA"
 
 pointcloud_texture_index: 0
@@ -39,5 +39,8 @@ align_depth: false
 decimation_filter:
         enable: true
         filter_magnitude: 3
+
+hole_filling_filter:
+        enable: false
 
 clip_distance: 9.0

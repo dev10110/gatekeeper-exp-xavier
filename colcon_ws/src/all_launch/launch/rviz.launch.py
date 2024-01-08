@@ -12,8 +12,10 @@ from launch.launch_description_sources import PythonLaunchDescriptionSource
 def generate_launch_description():
             
     file_names = [
-      # "esdf.rviz",
-      "all_tsdf.rviz",
+      "esdf.rviz",
+      "cesdf.rviz",
+      "depth_camera.rviz",
+      # "all_tsdf.rviz",
       # "cert_esdf.rviz",
       # "cert_tsdf_cert_dist.rviz",
       # "cert_tsdf_est_dist.rviz",

@@ -51,7 +51,7 @@
     clear_outside_radius_rate_hz: 1.0
 
     # mark free settings
-    mark_free_sphere_radius_m: 1.0
+    mark_free_sphere_radius_m: -1.0
     mark_free_sphere_center_x: -2.0
     mark_free_sphere_center_y: -0.4
     mark_free_sphere_center_z: 0.7
