@@ -2,5 +2,7 @@ build/
 log/
 install/
 bags/
+*.db3
+*.ply
 
 __pycache__/

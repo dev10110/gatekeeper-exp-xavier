@@ -107,6 +107,16 @@ class BagProcessor:
     def __init__(self, filename):
         self.filename = filename;
 
+        # extract maps
+        self.extract_maps("uncertified")
+        self.extract_maps("certified")
+
+        # correct timestamps based on first published map
+        self.correct_stamps()
+
+
+        
+
 
     def list_topics(self):
         # create reader instance and open for reading
@@ -117,6 +127,7 @@ class BagProcessor:
         return
 
     def extract_maps(self, mode="certified"):
+        
 
         print("extracting maps...")
 
@@ -149,15 +160,42 @@ class BagProcessor:
                 maps.append(sliceMap)
                 stamps.append(sliceMap.timestamp)
 
+        stamps = np.array(stamps)
+
+        if (mode=="uncertified"):
+            self.stamps = stamps
+            self.maps = maps
+
+        if (mode=="certified"):
+            self.cert_stamps = stamps
+            self.cert_maps = maps
+
 
         return stamps, maps
+    
+    def correct_stamps(self):
+
+        self.start_stamp = min(self.stamps[0], self.cert_stamps[0])
+
+        self.stamps = self.stamps - self.start_stamp
+        self.cert_stamps = self.stamps - self.start_stamp
+
+        # correct it in each slice
+        for m in self.maps:
+            m.timestamp = m.timestamp - self.start_stamp
+
+        for m in self.cert_maps:
+            m.timestamp = m.timestamp - self.start_stamp
+
+    def get_map_count(self):
+
+        return len(self.stamps), len(self.cert_stamps)
+
 
 
     def animate_maps(self, mode="certified", xlims=[-7,7], ylims=[-7,7]):
 
-        stamps, maps = self.extract_maps("uncertified")
-        cert_stamps, cert_maps = self.extract_maps("certified")
-        N = min(len(maps), len(cert_maps))
+        N = min(len(self.maps), len(self.cert_maps))
 
         # create a window
         fig, (ax1, ax2)= plt.subplots(nrows=1, ncols=2);
@@ -171,8 +209,8 @@ class BagProcessor:
         for i in range(N):
 
             # get the maps
-            m1 = maps[i]
-            m2 = cert_maps[i] # hack
+            m1 = self.maps[i]
+            m2 = self.cert_maps[i] # hack
 
             # plot
             ax1.clear()
@@ -187,8 +225,8 @@ class BagProcessor:
             ax2.set_ylim(ylims)
 
             # title
-            ax1.set_title(f"{m1.timestamp:.0f}")
-            ax2.set_title(f"{m2.timestamp:.0f}")
+            ax1.set_title(f"{m1.timestamp:.2f}")
+            ax2.set_title(f"{m2.timestamp:.2f}")
 
             # draw
             fig.canvas.draw()
@@ -211,6 +249,8 @@ if __name__== "__main__":
     filename = "/workspaces/isaac_ros-dev/rosbags/2024_01_08-11_48_09__run0_maps_clean"
 
     proc = BagProcessor(filename)
+
+    print(proc.get_map_count())
 
     proc.animate_maps();
 
