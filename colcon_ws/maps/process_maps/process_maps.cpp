@@ -7,6 +7,7 @@
 #include <pcl/io/ply_io.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/point_types.h>
+#include <pcl/filters/passthrough.h>
 
 using Point = pcl::PointXYZI;
 using PointCloud = pcl::PointCloud<Point>;
@@ -156,9 +157,24 @@ bool create_gridded_cloud(PointCloud &cloud, double xmin, double ymin,
   return true;
 }
 
+bool filter_by_margin(PointCloud::Ptr cloud, double margin=0.075)
+{
+
+	// applies a filter ensuring each cell has an intensity between -margin and +margin
+	pcl::PassThrough<Point> filter; 
+filter.setInputCloud(cloud);
+filter.setFilterFieldName("intensity");
+//filter.setFilterLimits(-margin, margin);
+filter.setFilterLimits(margin, 100.0);
+filter.filter(*cloud);
+
+return true;
+
+}
+
 int main(int argc, char **argv) {
 
-  std::string directory = "/workspaces/isaac_ros-dev/maps/clean_map";
+  std::string directory = "/workspaces/isaac_ros-dev/maps/noisy_map";
 
   // load the rotations
   std::cout << "starting load rotation matrix" << std::endl;
@@ -240,6 +256,11 @@ int main(int argc, char **argv) {
     std::cout << "FAILED" << std::endl;
     return -1;
   }
+  
+  // filter points
+  std::cout << "starting filtering" << std::endl;
+  filter_by_margin(cloud_esdf_gridded, 0.075);
+  filter_by_margin(cloud_certified_esdf_gridded, 0.075);
 
   // write to file
   std::cout << "starting write files" << std::endl;

@@ -42,10 +42,11 @@ def generate_launch_description():
 
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
 
-    run_num = 0
-    # mode = "raw"
-    mode = "maps"
-    bagname = f"{timestr}__run{run_num}_{mode}_clean"
+    run_num = 1
+    mode = "raw"
+    # mode = "noisy_maps"
+    # mode = "clean_maps"
+    bagname = f"run_{run_num}_{mode}_{timestr}"
 
 
     # raw measurement mode
@@ -54,14 +55,13 @@ def generate_launch_description():
 
 
     # maps mode
-    if mode == "maps":
+    if mode == "clean_maps" or mode == "noisy_maps":
         topics = bagtypes_tf() + bagtypes_vicon_true() +bagtypes_vicon_noisy() + bagtypes_maps();
 
     return launch.LaunchDescription([
         launch.actions.ExecuteProcess(
             cmd=['ros2', 'bag', 'record'] + topics + ["-o", bagname],
-            cwd=["/workspaces/isaac_ros-dev/rosbags"],
+            cwd=[f"/workspaces/isaac_ros-dev/rosbags/run_{run_num}"],
             output='screen'
         )
     ])
-                 

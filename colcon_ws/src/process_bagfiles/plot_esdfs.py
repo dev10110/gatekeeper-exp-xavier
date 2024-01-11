@@ -12,10 +12,6 @@ import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
-
-
-
-
 def guess_msgtype(path: Path) -> str:
     """Guess message type name from path."""
     name = path.relative_to(path.parents[2]).with_suffix('')
