@@ -4,10 +4,10 @@
 #include <iostream>
 #include <pcl/common/common.h>
 #include <pcl/common/transforms.h>
+#include <pcl/filters/passthrough.h>
 #include <pcl/io/ply_io.h>
 #include <pcl/kdtree/kdtree_flann.h>
 #include <pcl/point_types.h>
-#include <pcl/filters/passthrough.h>
 
 using Point = pcl::PointXYZI;
 using PointCloud = pcl::PointCloud<Point>;
@@ -157,24 +157,44 @@ bool create_gridded_cloud(PointCloud &cloud, double xmin, double ymin,
   return true;
 }
 
-bool filter_by_margin(PointCloud::Ptr cloud, double margin=0.075)
-{
+bool filter_by_margin(PointCloud::Ptr cloud, double margin = 0.075) {
 
-	// applies a filter ensuring each cell has an intensity between -margin and +margin
-	pcl::PassThrough<Point> filter; 
-filter.setInputCloud(cloud);
-filter.setFilterFieldName("intensity");
-//filter.setFilterLimits(-margin, margin);
-filter.setFilterLimits(margin, 100.0);
-filter.filter(*cloud);
+  // applies a filter ensuring each cell has an intensity between -margin and
+  // +margin
+  pcl::PassThrough<Point> filter;
+  filter.setInputCloud(cloud);
+  filter.setFilterFieldName("intensity");
+  filter.setFilterLimits(-margin, margin);
+  // filter.setFilterLimits(margin, 100.0);
+  filter.filter(*cloud);
 
-return true;
+  return true;
+}
 
+bool filter_by_pos(PointCloud::Ptr cloud, double lower, double upper) {
+
+  // applies a filter ensuring each cell has a z value in [lower, upper]
+  pcl::PassThrough<Point> filter;
+  filter.setInputCloud(cloud);
+  filter.setFilterFieldName("z");
+  filter.setFilterLimits(lower, upper);
+  filter.filter(*cloud);
+
+  return true;
 }
 
 int main(int argc, char **argv) {
 
-  std::string directory = "/workspaces/isaac_ros-dev/maps/noisy_map";
+  if (argc != 2) {
+    std::cout << "This script requires exactly one argument: the directory of "
+                 "the file to process"
+              << std::endl;
+    return -1;
+  }
+
+  std::string directory = std::string(argv[1]);
+
+  std::cout << " processing directory : " << directory << std::endl;
 
   // load the rotations
   std::cout << "starting load rotation matrix" << std::endl;
@@ -231,10 +251,10 @@ int main(int argc, char **argv) {
 
   double xmin = -7;
   double ymin = -8;
-  double zmin = -2;
+  double zmin = 1.0;
   double xmax = 9;
   double ymax = 9;
-  double zmax = 5;
+  double zmax = 1.08;
   double resolution = 0.075;
 
   PointCloud::Ptr cloud_esdf_gridded(new PointCloud);
@@ -256,11 +276,13 @@ int main(int argc, char **argv) {
     std::cout << "FAILED" << std::endl;
     return -1;
   }
-  
+
   // filter points
   std::cout << "starting filtering" << std::endl;
-  filter_by_margin(cloud_esdf_gridded, 0.075);
-  filter_by_margin(cloud_certified_esdf_gridded, 0.075);
+  // filter_by_margin(cloud_esdf_gridded, 0.075);
+  // filter_by_margin(cloud_certified_esdf_gridded, 0.075);
+  // filter_by_pos(cloud_esdf_gridded, 0.8, 1.0);
+  // filter_by_pos(cloud_certified_esdf_gridded, 0.8, 1.0);
 
   // write to file
   std::cout << "starting write files" << std::endl;

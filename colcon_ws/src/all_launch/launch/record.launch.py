@@ -1,7 +1,8 @@
 import launch
 import time
-
-grab_color = False
+from launch.actions import DeclareLaunchArgument, ExecuteProcess
+from launch.conditions import IfCondition
+from launch.substitutions import LaunchConfiguration, PythonExpression
 
 def bagtypes_tf():
     return ["/tf", "/tf_static"]
@@ -39,29 +40,62 @@ def bagtypes_maps():
             ]
 
 def generate_launch_description():
+    
+    raw_mode = LaunchConfiguration('raw_mode')
+    raw_mode_arg  = DeclareLaunchArgument(
+            'raw_mode', default_value="False", 
+            description="Set true if you want to record a raw bag file")
+    
+    noisy_mode = LaunchConfiguration('noisy_mode')
+    noisy_mode_arg  = DeclareLaunchArgument(
+            'noisy_mode', default_value="False",
+            description="Set true if you want to record a noisy bag file")
+    
+    clean_mode = LaunchConfiguration('clean_mode')
+    clean_mode_arg  = DeclareLaunchArgument(
+            'clean_mode', default_value="False",
+            description="Set true if you want to record a clean bag file")
 
-    timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
 
     run_num = 1
-    mode = "raw"
-    # mode = "noisy_maps"
-    # mode = "clean_maps"
-    bagname = f"run_{run_num}_{mode}_{timestr}"
+    timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
+
+    raw_bagname = f"run_{run_num}_raw_{timestr}"
+    noisy_bagname = f"run_{run_num}_noisy_{timestr}"
+    clean_bagname = f"run_{run_num}_clean_{timestr}"
 
 
-    # raw measurement mode
-    if mode == "raw":
-        topics = bagtypes_tf() + bagtypes_vicon_true() + bagtypes_color() + bagtypes_depth();
+    # topics 
+    raw_topics = bagtypes_tf() + bagtypes_vicon_true() + bagtypes_color() + bagtypes_depth();
+    clean_topics = bagtypes_tf() + bagtypes_vicon_true() +bagtypes_vicon_noisy() + bagtypes_maps();
+    noisy_topics = bagtypes_tf() + bagtypes_vicon_true() +bagtypes_vicon_noisy() + bagtypes_maps();
 
+    raw_record = ExecuteProcess(
+            cmd=['ros2', 'bag', 'record'] + raw_topics + ["-o", raw_bagname],
+            cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
+            output='screen',
+            condition = IfCondition(raw_mode)
+            )
+    noisy_record = ExecuteProcess(
+            cmd=['ros2', 'bag', 'record'] + noisy_topics + ["-o", noisy_bagname],
+            cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
+            output='screen',
+            condition = IfCondition(noisy_mode)
+            )
+    clean_record = ExecuteProcess(
+            cmd=['ros2', 'bag', 'record'] + clean_topics + ["-o", clean_bagname],
+            cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
+            output='screen',
+            condition = IfCondition(clean_mode)
+            )
 
-    # maps mode
-    if mode == "clean_maps" or mode == "noisy_maps":
-        topics = bagtypes_tf() + bagtypes_vicon_true() +bagtypes_vicon_noisy() + bagtypes_maps();
+    ## 
 
     return launch.LaunchDescription([
-        launch.actions.ExecuteProcess(
-            cmd=['ros2', 'bag', 'record'] + topics + ["-o", bagname],
-            cwd=[f"/workspaces/isaac_ros-dev/rosbags/run_{run_num}"],
-            output='screen'
-        )
+        raw_mode_arg,
+        clean_mode_arg,
+        noisy_mode_arg,
+        raw_record, 
+        noisy_record,
+        clean_record
     ])

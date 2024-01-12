@@ -16,10 +16,16 @@ class ServiceSavePly(Node):
     def __init__(self):
         super().__init__('service_save_ply')
 
+        # parameters
+        self.declare_parameter('save_path', rclpy.Parameter.Type.STRING)
+        self.save_path  = self.get_parameter('save_path').value
+        
+        self.declare_parameter('save_time_seconds', 60.0) # defaults to 1 min
+        self.save_time = self.get_parameter('save_time_seconds').value
 
         # time to collect the data
         self.target_time = None
-        self.duration = Duration(seconds = 7 * 60) # 7 minutes
+        self.duration = Duration(seconds = self.save_time) 
 
         # create the subscriber
         self.sub = self.create_subscription(
@@ -39,7 +45,7 @@ class ServiceSavePly(Node):
 
 
     def send_request(self):
-        self.req.file_path = "/workspaces/isaac_ros-dev/maps/run_1/clean_maps"
+        self.req.file_path = self.save_path # "/workspaces/isaac_ros-dev/maps/run_1/clean_maps"
         self.future = self.client.call_async(self.req)
         rclpy.spin_until_future_complete(self, self.future)
         self.get_logger().info(f" request returned: {self.future.result()}")
@@ -51,7 +57,7 @@ class ServiceSavePly(Node):
         if self.target_time is None:
             stamp = Time.from_msg(msg.header.stamp)
             self.target_time = stamp + self.duration
-            self.get_logger().info(f"set target time to {self.target_time}")
+            self.get_logger().info(f"Got Image! Set target time to {self.target_time}")
 
 
         elif self.target_time is not None:
