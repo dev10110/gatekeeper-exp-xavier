@@ -7,8 +7,9 @@ Panels:
         - /Global Options1
         - /Image1/Topic1
         - /TF1/Tree1
+        - /CameraFov1/Topic1
       Splitter Ratio: 0.5323529243469238
-    Tree Height: 365
+    Tree Height: 725
   - Class: rviz_common/Selection
     Name: Selection
   - Class: rviz_common/Tool Properties
@@ -26,7 +27,7 @@ Panels:
     Experimental: false
     Name: Time
     SyncMode: 0
-    SyncSource: CESDF
+    SyncSource: ""
 Visualization Manager:
   Class: ""
   Displays:
@@ -305,12 +306,16 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
+        camera_color_frame:
+          Value: false
+        camera_color_optical_frame:
+          Value: false
         camera_depth_frame:
           Value: false
         camera_depth_optical_frame:
           Value: false
         camera_link:
-          Value: true
+          Value: false
         vicon/laptop_realsense/laptop_realsense:
           Value: true
         vicon/laptop_realsense_true/laptop_realsense_true:
@@ -323,11 +328,14 @@ Visualization Manager:
       Name: TF
       Show Arrows: true
       Show Axes: true
-      Show Names: false
+      Show Names: true
       Tree:
         vicon/world:
           vicon/laptop_realsense/laptop_realsense:
             camera_link:
+              camera_color_frame:
+                camera_color_optical_frame:
+                  {}
               camera_depth_frame:
                 camera_depth_optical_frame:
                   {}
@@ -342,7 +350,7 @@ Visualization Manager:
       Axes Radius: 0.10000000149011612
       Class: rviz_default_plugins/Pose
       Color: 255; 25; 0
-      Enabled: true
+      Enabled: false
       Head Length: 0.30000001192092896
       Head Radius: 0.10000000149011612
       Name: Pose
@@ -356,6 +364,20 @@ Visualization Manager:
         History Policy: Keep Last
         Reliability Policy: Reliable
         Value: /pose
+      Value: false
+    - Alpha: 1
+      Class: camera_fov_rviz_plugin/CameraFov
+      Color: 204; 51; 204
+      Enabled: true
+      History Length: 1
+      Name: CameraFov
+      Topic:
+        Depth: 5
+        Durability Policy: Volatile
+        Filter size: 10
+        History Policy: Keep Last
+        Reliability Policy: Reliable
+        Value: /camera/depth/camera_info
       Value: true
   Enabled: true
   Global Options:

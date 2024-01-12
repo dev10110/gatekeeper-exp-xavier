@@ -19,9 +19,6 @@
 [submodule "colcon_ws/src/isaac_ros_nvblox"]
 	path = colcon_ws/src/isaac_ros_nvblox
 	url = git@github.com:dev10110/isaac_ros_nvblox.git 
-[submodule "colcon_ws/src/vicon-bridge"]
-	path = colcon_ws/src/vicon-bridge
-	url = git@github.com:dasc-lab/vicon-bridge.git
 [submodule "colcon_ws/src/vicon_px4_bridge"]
 	path = colcon_ws/src/vicon_px4_bridge
 	url = git@github.com:dasc-lab/vicon_px4_bridge.git
@@ -40,3 +37,6 @@
 [submodule "colcon_ws/src/camera_fov_rviz_plugin"]
 	path = colcon_ws/src/camera_fov_rviz_plugin
 	url = git@github.com:dasc-lab/camera_fov_rviz_plugin.git
+[submodule "colcon_ws/src/ros2-vicon-bridge"]
+	path = colcon_ws/src/ros2-vicon-bridge
+	url = git@github.com:dasc-lab/ros2-vicon-bridge.git
