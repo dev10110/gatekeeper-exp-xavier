@@ -55,9 +55,8 @@ def generate_launch_description():
     clean_mode_arg  = DeclareLaunchArgument(
             'clean_mode', default_value="False",
             description="Set true if you want to record a clean bag file")
-
-
-    run_num = 1
+    
+    run_num = 2
     timestr = time.strftime("%Y_%m_%d-%H_%M_%S")
 
     raw_bagname = f"run_{run_num}_raw_{timestr}"
@@ -71,19 +70,19 @@ def generate_launch_description():
     noisy_topics = bagtypes_tf() + bagtypes_vicon_true() +bagtypes_vicon_noisy() + bagtypes_maps();
 
     raw_record = ExecuteProcess(
-            cmd=['ros2', 'bag', 'record'] + raw_topics + ["-o", raw_bagname],
+            cmd=['ros2', 'bag', 'record'] + raw_topics + ["-o", raw_bagname], 
             cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
             output='screen',
             condition = IfCondition(raw_mode)
             )
     noisy_record = ExecuteProcess(
-            cmd=['ros2', 'bag', 'record'] + noisy_topics + ["-o", noisy_bagname],
+            cmd=['ros2', 'bag', 'record'] + noisy_topics + ["-o", noisy_bagname, "--use-sim-time"],
             cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
             output='screen',
             condition = IfCondition(noisy_mode)
             )
     clean_record = ExecuteProcess(
-            cmd=['ros2', 'bag', 'record'] + clean_topics + ["-o", clean_bagname],
+            cmd=['ros2', 'bag', 'record'] + clean_topics + ["-o", clean_bagname, "--use-sim-time"],
             cwd=[f"/workspaces/isaac_ros-dev/rosbags/mapping/run_{run_num}"],
             output='screen',
             condition = IfCondition(clean_mode)

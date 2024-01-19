@@ -13,23 +13,23 @@ from ament_index_python.packages import get_package_share_directory
 
 def generate_launch_description():
 
-    mode  = "noisy" 
+    mode  = "clean"
 
     if mode=="noisy":
         print("noisy mode")
         epsilon_R = 0.0006
         epsilon_t = 0.0005
-        save_path = "/workspaces/isaac_ros-dev/maps/run_1/noisy"
+        save_path = "/workspaces/isaac_ros-dev/maps/run_2/noisy"
     elif mode=="clean":
         print("clean mode")
         epsilon_R = 0.0;
         epsilon_t = 0.0;
-        save_path = "/workspaces/isaac_ros-dev/maps/run_1/clean"
+        save_path = "/workspaces/isaac_ros-dev/maps/run_2/clean"
     else: 
         print("unsupported mode")
         return LaunchDescription()
 
-    rosbag_play_file = "/workspaces/isaac_ros-dev/rosbags/mapping/run_1/run_1_raw_2024_01_10-12_04_18"
+    rosbag_play_file = "/workspaces/isaac_ros-dev/rosbags/mapping/run_2/run_1_raw_2024_01_10-12_04_18"
 
     all_launch_dir = get_package_share_directory('all_launch')
     
@@ -79,13 +79,13 @@ def generate_launch_description():
             executable="client",
             parameters=[
                 {"save_path": save_path},
-                {"save_time_seconds": 105.0}
+                {"save_time_seconds": 300.0}
                 ]
             )
 
     # rosbag play
     play = ExecuteProcess(
-            cmd=['ros2', 'bag', 'play', rosbag_play_file],
+            cmd=['ros2', 'bag', 'play', rosbag_play_file, "--clock"], # --clock is needed so the rosbag player publishes current time to the /clock topic
             output='screen'
         )
 

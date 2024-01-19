@@ -1,19 +1,19 @@
 /**:
   ros__parameters:
     # miscellaneous
-    voxel_size: 0.075
+    voxel_size: 0.1
     use_tf_transforms: true
     use_topic_transforms: false
     
     # esdf settings
     compute_esdf: true 
     use_cerfified_tsdf: false
-    esdf_update_rate_hz: 5.0
+    esdf_update_rate_hz: 30.0
     esdf_2d: false     
     esdf_distance_slice: true
-    esdf_slice_height: 0.9
-    esdf_2d_min_height: 0.8
-    esdf_2d_max_height: 1.0
+    esdf_slice_height: 1.15
+    esdf_2d_min_height: 1.1
+    esdf_2d_max_height: 1.2
 
     esdf_3d_origin_frame_id: "vicon/laptop_realsense/laptop_realsense"
     esdf_3d_pub_range_x: 1.5
@@ -23,7 +23,7 @@
 
     
     # mesh settings
-    compute_mesh: true 
+    compute_mesh: true
     mesh_update_rate_hz: 0.5
     
     # color settings

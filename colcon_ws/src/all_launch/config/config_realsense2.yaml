@@ -3,7 +3,7 @@ device_type: ''
 serial_no: ''
 usb_port_id: ''
 
-initial_reset: False  # True
+initial_reset: False
 
 rgb_camera:
   profile: '848x480x60'

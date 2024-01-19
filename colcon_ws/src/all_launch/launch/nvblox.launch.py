@@ -51,7 +51,7 @@ def generate_launch_description():
         # Set parameters with specializations
         SetParametersFromFile(base_config),
         SetParameter(name='global_frame',
-                     value=LaunchConfiguration('global_frame', default='vicon/world')),
+                     value=LaunchConfiguration('global_frame', default='mapping')),
 
         # Remappings for realsense data
         SetRemap(src=['depth/image'],

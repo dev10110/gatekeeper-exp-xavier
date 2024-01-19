@@ -4,5 +4,9 @@ install/
 bags/
 *.db3
 *.ply
+*.pkl
+*.h5
+*.png
+COLCON_IGNORE
 
 __pycache__/

@@ -204,7 +204,7 @@ int main(int argc, char **argv) {
     std::cout << "Failed." << std::endl;
     return -1;
   }
-  Eigen::Affine3d T_L_EO(T_L_EO_matrix);
+  Eigen::Affine3d T_L_EO(Eigen::Affine3d::Identity());//  let it be identity for now (T_L_EO_matrix);
 
   // note: T_L_EO maps body frame vector TO world frame vector
 
@@ -238,23 +238,23 @@ int main(int argc, char **argv) {
 
   // get min-max axes of the clouds
   Point minPt, maxPt;
-  pcl::getMinMax3D(*cloud_esdf, minPt, maxPt);
+  pcl::getMinMax3D(*cloud_esdf_rotated, minPt, maxPt);
   std::cout << "  - ESDF minPt: " << minPt << std::endl;
   std::cout << "  - ESDF maxPt: " << maxPt << std::endl;
 
-  pcl::getMinMax3D(*cloud_certified_esdf, minPt, maxPt);
+  pcl::getMinMax3D(*cloud_certified_esdf_rotated, minPt, maxPt);
   std::cout << "  - ESDF minPt: " << minPt << std::endl;
   std::cout << "  - ESDF maxPt: " << maxPt << std::endl;
 
   // create a resampling grid
   std::cout << "starting creating grid" << std::endl;
 
-  double xmin = -7;
-  double ymin = -8;
-  double zmin = 1.0;
-  double xmax = 9;
-  double ymax = 9;
-  double zmax = 1.08;
+  double xmin = -8;
+  double ymin = -7;
+  double zmin = -3;
+  double xmax = 8;
+  double ymax = 7;
+  double zmax = 3.0;
   double resolution = 0.075;
 
   PointCloud::Ptr cloud_esdf_gridded(new PointCloud);

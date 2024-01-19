@@ -32,9 +32,9 @@ def generate_launch_description():
            ],
         output='screen')
 
-    off_x = "0.0"
-    off_y = "0.0"
-    off_z = "0.0"
+    off_x = "0.05"
+    off_y = "0.09"
+    off_z = "0.15"
     off_roll = "0.0" 
     off_pitch = "0"
     off_yaw = "0"
